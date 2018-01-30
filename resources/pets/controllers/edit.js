@@ -8,6 +8,20 @@ module.exports = (req, res) => {
 
   // Find the pet record from the "pets" collection via its ID above
 
+  MongoClient.connect(mongoUrl, (err, db) => {
+
+    db.collection("pets").findOne({
+      _id: petId
+    }, (err, pet) => {
+      db.close();
+
+      res.render("edit_pet", {
+        pet: pet
+      });
+    });
+
+  });
+
   // Call the method below, passing in the pet object after the query is complete:
 
   // res.render("edit_pet", {
