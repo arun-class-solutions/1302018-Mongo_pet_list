@@ -16,6 +16,20 @@ module.exports = (req, res) => {
     phoneNumber: req.body.phoneNumber
   }
 
+  MongoClient.connect(mongoUrl, (err, db) => {
+
+    db.collection("owners").update({
+      _id: ownerId
+    }, {
+      $set: editedOwner
+    }, (err, updatedOwner) => {
+      db.close();
+
+      res.redirect("/");
+    });
+
+  });
+
   // Call the method below after the query is complete:
 
   // res.redirect("/");
