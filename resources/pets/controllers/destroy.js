@@ -9,5 +9,17 @@ module.exports = (req, res) => {
   // Remove a pet from the "pets" collection via its ID above
   // Call the method below after the query is complete:
 
+  MongoClient.connect(mongoUrl, (err, db) => {
+
+    db.collection("pets").remove({
+      _id: petId
+    }, (err, deletedPet) => {
+      db.close();
+
+      res.sendStatus(200);
+    });
+
+  });
+
   // res.sendStatus(200);
 }
