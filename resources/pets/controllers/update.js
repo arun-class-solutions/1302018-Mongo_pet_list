@@ -16,6 +16,20 @@ module.exports = (req, res) => {
     photo: req.body.photo
   }
 
+  MongoClient.connect(mongoUrl, (err, db) => {
+
+    db.collection("pets").update({
+      _id: petId
+    }, {
+      $set: editedPet
+    }, (err, updatedPet) => {
+      db.close();
+
+      res.redirect("/");
+    });
+
+  });
+
   // Call the method below when the query is complete:
 
   // res.redirect("/");
