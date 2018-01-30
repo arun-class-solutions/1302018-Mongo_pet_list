@@ -9,6 +9,20 @@ module.exports = (req, res) => {
   // Find the owner via its ID above
   // Call the method below passing in the owner object when the query is complete:
 
+  MongoClient.connect(mongoUrl, (err, db) => {
+
+    db.collection("owners").findOne({
+      _id: ownerId
+    }, (err, owner) => {
+      db.close();
+
+      res.render("add_pet", {
+        owner: owner
+      });
+    });
+
+  });
+
   // res.render("add_pet", {
   //   owner: ownerObject
   // });
