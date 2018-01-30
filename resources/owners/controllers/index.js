@@ -9,6 +9,7 @@ module.exports = (req, res) => {
   // Call the method below, passing in the owners array:
   MongoClient.connect(mongoUrl, (err, db) => {
     db.collection("owners").find({}).toArray((err, owners) => {
+      db.close();
       // Render index template with owner records from Mongo
       res.render("index", {
         owners: owners

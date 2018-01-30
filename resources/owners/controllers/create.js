@@ -14,5 +14,12 @@ module.exports = (req, res) => {
     phoneNumber: req.body.phoneNumber
   }
 
+  MongoClient.connect(mongoUrl, (err, db) => {
+    db.collection("owners").insert(newOwner, (err, newOwner) => {
+      db.close();
+      res.redirect("/");
+    });
+  });
+
   // Call this method when the query is complete: res.redirect("/");
 }
