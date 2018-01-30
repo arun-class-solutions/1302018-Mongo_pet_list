@@ -17,6 +17,14 @@ module.exports = (req, res) => {
     ownerId: ownerId
   }
 
+  MongoClient.connect(mongoUrl, (err, db) => {
+
+    db.collection("pets").insert(newPet, (err, createdPet) => {
+      res.redirect("/");
+    });
+
+  });
+
   // Call the method below after the query is complete:
 
   // res.redirect("/");
